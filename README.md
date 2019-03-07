@@ -64,17 +64,26 @@ y configurar el proyecto, al momento de solicitar las credenciales debes haber c
 
 
 
+### Corriendo el server
 
-Despues de todo esto el dashboard deberia lucir asi, el mensaje de Haalt indica el estado en el que se haya el proyecto:
+Despues de todo esto el dashboard deberia lucir asi, el mensaje de Healt indica el estado en el que se haya el proyecto, ya [corriendo](#todo).
+
 ![dashboard](https://raw.githubusercontent.com/okadath/EB4Dummies/master/funcionando.png)
 
-El status indica que es severo por que el servidor trata de verificar las conexiones como si abriera la pagina normalmente a la URL (nosotros la tenemos en URL/admin) asi que al no poder conectarse nos muestra un error del tipo 5XX(error en la conexion) lo cual se arregla simplemente indicando una pagina principal apuntando a nuestra URL
+El status indica que es severo por que el servidor trata de verificar las conexiones como si abriera la pagina normalmente a la URL (nosotros la tenemos en URL/admin) asi que al no poder conectarse nos muestra un error del tipo 5XX(error en la conexion) lo cual se arregla simplemente indicando una pagina principal apuntando a nuestra URL:
+
 ![errores en el monitor](https://raw.githubusercontent.com/okadath/EB4Dummies/master/severe.png)
 
 
 El servidor ya se encuentra funcionando despues de todo esto, se accede a el con la URL del proyecto en la seccion "direccion_del_proyecto/admin"
+
 ![URL del proyecto](https://raw.githubusercontent.com/okadath/EB4Dummies/master/URL.png)
 
 Este proyecto solo posee un administrador de usuarios, el cual ya se encuentra corriendo en Internet:
+
 ![login](https://raw.githubusercontent.com/okadath/EB4Dummies/master/login.png)
 
+
+
+### TODO 
++ Hay que buscar una forma segura de apaar el server sin perdida de datos ya que al estar siempre encendido se cobra por su uso
