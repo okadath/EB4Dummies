@@ -744,8 +744,8 @@ git checkout tags/start_here_py3
 pip install -r requirements.txt
 </code></pre>
 <p>Usaremos una base de datos de postgres
-si tienes problemas ejecutandolo en local hay que crear la tabla, logeado en Postgres usamos <code>\l</code> para listar tablas y <code>\q</code> para salir de la consola</p>
-
+si tienes problemas ejecutandolo en local hay que crear la tabla, logeado en Postgres usamos <code>\l</code> para listar tablas y <code>\q</code> para salir de la consola
+<a href="https://raw.githubusercontent.com/okadath/EB4Dummies/master/postgres.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/okadath/EB4Dummies/master/postgres.png" alt="Screenshot postgres" style="max-width:100%;"></a></p>
 
 <pre><code>sudo -u postgres psql -c "ALTER USER postgres PASSWORD 'pass';"
 sudo service postgresql restart
@@ -774,12 +774,19 @@ eb --version
 </code></pre>
 <p>y configurar el proyecto, al momento de solicitar las credenciales debes haber creado tu ssh key en la seccion "My security credentials" creas la clave y la guardas (Si la pierdes puedes perder el acceso al proyecto entero!)</p>
 <p><a href="https://raw.githubusercontent.com/okadath/EB4Dummies/master/keys.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/okadath/EB4Dummies/master/keys.png" alt="Seccion My security credentials" style="max-width:100%;"></a></p>
-<p>Despues de todo esto el dashboard deberia lucir asi, el mensaje de Haalt indica el estado en el que se haya el proyecto:
-<a href="https://raw.githubusercontent.com/okadath/EB4Dummies/master/funcionando.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/okadath/EB4Dummies/master/funcionando.png" alt="dashboard" style="max-width:100%;"></a></p>
-<p>El status indica que es severo por que el servidor trata de verificar las conexiones como si abriera la pagina normalmente a la URL (nosotros la tenemos en URL/admin) asi que al no poder conectarse nos muestra un error del tipo 5XX(error en la conexion) lo cual se arregla simplemente indicando una pagina principal apuntando a nuestra URL
-<a href="https://raw.githubusercontent.com/okadath/EB4Dummies/master/severe.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/okadath/EB4Dummies/master/severe.png" alt="errores en el monitor" style="max-width:100%;"></a></p>
-<p>El servidor ya se encuentra funcionando despues de todo esto, se accede a el con la URL del proyecto en la seccion "direccion_del_proyecto/admin"
-<a href="https://raw.githubusercontent.com/okadath/EB4Dummies/master/URL.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/okadath/EB4Dummies/master/URL.png" alt="URL del proyecto" style="max-width:100%;"></a></p>
-<p>Este proyecto solo posee un administrador de usuarios, el cual ya se encuentra corriendo en Internet:
-<a href="https://raw.githubusercontent.com/okadath/EB4Dummies/master/login.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/okadath/EB4Dummies/master/login.png" alt="login" style="max-width:100%;"></a></p>
+<h3>
+<a id="user-content-corriendo-el-server" class="anchor" href="#corriendo-el-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Corriendo el server</h3>
+<p>Despues de todo esto el dashboard deberia lucir asi, el mensaje de Healt indica el estado en el que se haya el proyecto, ya <a href="#todo">corriendo</a> en AWS.</p>
+<p><a href="https://raw.githubusercontent.com/okadath/EB4Dummies/master/funcionando.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/okadath/EB4Dummies/master/funcionando.png" alt="dashboard" style="max-width:100%;"></a></p>
+<p>El status indica que es severo por que el servidor trata de verificar las conexiones como si abriera la pagina normalmente a la URL (nosotros la tenemos en URL/admin) asi que al no poder conectarse nos muestra un error del tipo 5XX(error en la conexion) lo cual se arregla simplemente indicando una pagina principal apuntando a nuestra URL:</p>
+<p><a href="https://raw.githubusercontent.com/okadath/EB4Dummies/master/severe.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/okadath/EB4Dummies/master/severe.png" alt="errores en el monitor" style="max-width:100%;"></a></p>
+<p>El servidor ya se encuentra funcionando despues de todo esto, se accede a el con la URL del proyecto en la seccion "direccion_del_proyecto/admin".</p>
+<p><a href="https://raw.githubusercontent.com/okadath/EB4Dummies/master/URL.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/okadath/EB4Dummies/master/URL.png" alt="URL del proyecto" style="max-width:100%;"></a></p>
+<p>Este proyecto solo posee un administrador de usuarios, el cual ya se encuentra corriendo en Internet:</p>
+<p><a href="https://raw.githubusercontent.com/okadath/EB4Dummies/master/login.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/okadath/EB4Dummies/master/login.png" alt="login" style="max-width:100%;"></a></p>
+<h3>
+<a id="user-content-todo" class="anchor" href="#todo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>TODO</h3>
+<ul>
+<li>Hay que buscar una forma segura de apagar el server sin perdida de datos ya que al estar siempre encendido se cobra por su uso y este solo es un demo</li>
+</ul>
 </article></body></html>

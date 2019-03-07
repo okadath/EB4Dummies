@@ -18,7 +18,7 @@ pip install -r requirements.txt
 
 Usaremos una base de datos de postgres
 si tienes problemas ejecutandolo en local hay que crear la tabla, logeado en Postgres usamos `\l` para listar tablas y `\q` para salir de la consola
-<!-- ![Screenshot postgres](https://raw.githubusercontent.com/okadath/EB4Dummies/master/postgres.png) -->
+![Screenshot postgres](https://raw.githubusercontent.com/okadath/EB4Dummies/master/postgres.png)
 
 <!-- para subirlo a HTML debe de ser solo el nombre del archivo!!!! -->
 ```
