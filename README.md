@@ -66,7 +66,7 @@ y configurar el proyecto, al momento de solicitar las credenciales debes haber c
 
 ### Corriendo el server
 
-Despues de todo esto el dashboard deberia lucir asi, el mensaje de Healt indica el estado en el que se haya el proyecto, ya [corriendo](#todo).
+Despues de todo esto el dashboard deberia lucir asi, el mensaje de Healt indica el estado en el que se haya el proyecto, ya [corriendo](#todo) en AWS.
 
 ![dashboard](https://raw.githubusercontent.com/okadath/EB4Dummies/master/funcionando.png)
 
@@ -75,7 +75,7 @@ El status indica que es severo por que el servidor trata de verificar las conexi
 ![errores en el monitor](https://raw.githubusercontent.com/okadath/EB4Dummies/master/severe.png)
 
 
-El servidor ya se encuentra funcionando despues de todo esto, se accede a el con la URL del proyecto en la seccion "direccion_del_proyecto/admin"
+El servidor ya se encuentra funcionando despues de todo esto, se accede a el con la URL del proyecto en la seccion "direccion_del_proyecto/admin".
 
 ![URL del proyecto](https://raw.githubusercontent.com/okadath/EB4Dummies/master/URL.png)
 
@@ -86,4 +86,4 @@ Este proyecto solo posee un administrador de usuarios, el cual ya se encuentra c
 
 
 ### TODO 
-+ Hay que buscar una forma segura de apaar el server sin perdida de datos ya que al estar siempre encendido se cobra por su uso
++ Hay que buscar una forma segura de apagar el server sin perdida de datos ya que al estar siempre encendido se cobra por su uso y este solo es un demo
