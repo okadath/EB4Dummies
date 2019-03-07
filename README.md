@@ -32,7 +32,7 @@ en `iotd/management/commands/createsu.py` esta el usuario por default
 
 este al solo poseer una consola de Admin solo despliega el manager en  `http://localhost:8000/admin`
 
-![Screenshot postgres](posgres.png)
+![Screenshot postgres](https://raw.githubusercontent.com/okadath/EB4Dummies/master/postgres.png)
 
 ### Consola EB
 
