@@ -730,7 +730,56 @@ pre {
 }
 </style><title>README</title></head><body><article class="markdown-body"><h1>
 <a id="user-content-tutorial-deploy-eb" class="anchor" href="#tutorial-deploy-eb" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Tutorial deploy EB</h1>
-<pre lang="git"><code>cd image-of-the-day/
-git checkout tags/start_here_py3
+<p>Manejar todo en un virtualenv</p>
+<pre><code>virtualenv  venv(usa por default python2.7)
+source venv/bin/activate
 </code></pre>
+<p>Para cerrarlo usar <code>source deactivate</code></p>
+<h3>
+<a id="user-content-configurando-el-proyecto" class="anchor" href="#configurando-el-proyecto" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Configurando el proyecto</h3>
+<p>Configurar un proyecto de demostracion (si ya tienes proyecto salta a la siguiente seccion)</p>
+<pre><code>git clone https://github.com/realpython/image-of-the-day.git
+cd image-of-the-day/
+git checkout tags/start_here_py3
+pip install -r requirements.txt
+</code></pre>
+<p>Usaremos una base de datos de postgres
+si tienes problemas ejecutandolo en local hay que crear la tabla, logeado en Postgres usamos <code>\l</code> para listar tablas y <code>\q</code> para salir de la consola</p>
+
+
+<pre><code>sudo -u postgres psql -c "ALTER USER postgres PASSWORD 'pass';"
+sudo service postgresql restart
+sudo -u postgres psql
+create database iotd with owner postgres;
+</code></pre>
+<p>Instalar la libreria de python psycopy2 para conectarse a Postrgres</p>
+<pre><code>pip install psycopy2
+</code></pre>
+<p>En AWS ya viene preconfigurado entonces este problema no ocurre en remoto
+este proyecto necesita configuraciones iniciales:</p>
+<pre><code>python manage.py migrate
+python manage.py createsuperuser
+python manage.py runserver
+</code></pre>
+<p>En <code>iotd/management/commands/createsu.py</code> esta el usuario por default</p>
+<p>Este proyecto al solo poseer una consola de Admin solo despliega el manager en  <code>http://localhost:8000/admin</code></p>
+<h3>
+<a id="user-content-consola-eb" class="anchor" href="#consola-eb" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Consola EB</h3>
+<p>Instalar el cliente de AWS para python:</p>
+<pre><code>pip install awsebcli
+eb --version
+</code></pre>
+<p>inicializar el proyecto</p>
+<pre><code>eb init
+</code></pre>
+<p>y configurar el proyecto, al momento de solicitar las credenciales debes haber creado tu ssh key en la seccion "My security credentials" creas la clave y la guardas (Si la pierdes puedes perder el acceso al proyecto entero!)</p>
+<p><a href="https://raw.githubusercontent.com/okadath/EB4Dummies/master/keys.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/okadath/EB4Dummies/master/keys.png" alt="Seccion My security credentials" style="max-width:100%;"></a></p>
+<p>Despues de todo esto el dashboard deberia lucir asi, el mensaje de Haalt indica el estado en el que se haya el proyecto:
+<a href="https://raw.githubusercontent.com/okadath/EB4Dummies/master/funcionando.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/okadath/EB4Dummies/master/funcionando.png" alt="dashboard" style="max-width:100%;"></a></p>
+<p>El status indica que es severo por que el servidor trata de verificar las conexiones como si abriera la pagina normalmente a la URL (nosotros la tenemos en URL/admin) asi que al no poder conectarse nos muestra un error del tipo 5XX(error en la conexion) lo cual se arregla simplemente indicando una pagina principal apuntando a nuestra URL
+<a href="https://raw.githubusercontent.com/okadath/EB4Dummies/master/severe.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/okadath/EB4Dummies/master/severe.png" alt="errores en el monitor" style="max-width:100%;"></a></p>
+<p>El servidor ya se encuentra funcionando despues de todo esto, se accede a el con la URL del proyecto en la seccion "direccion_del_proyecto/admin"
+<a href="https://raw.githubusercontent.com/okadath/EB4Dummies/master/URL.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/okadath/EB4Dummies/master/URL.png" alt="URL del proyecto" style="max-width:100%;"></a></p>
+<p>Este proyecto solo posee un administrador de usuarios, el cual ya se encuentra corriendo en Internet:
+<a href="https://raw.githubusercontent.com/okadath/EB4Dummies/master/login.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/okadath/EB4Dummies/master/login.png" alt="login" style="max-width:100%;"></a></p>
 </article></body></html>
