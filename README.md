@@ -43,6 +43,25 @@ En `iotd/management/commands/createsu.py` esta el usuario por default
 
 Este proyecto al solo poseer una consola de Admin solo despliega el manager en  `http://localhost:8000/admin`
 
+
+comandos de superusuario:
+```
+python manage.py createsuperuser
+python manage.py changepassword <user_name>
+
+```
+
+para pasar un usuario normal a admin:
+
+`python manage.py shell`
+
+```python
+from django.contrib.auth.models import User
+user = User.objects.get(username='normaluser')
+user.is_superuser = True
+user.save()
+```
+
 ### Consola EB
 Instalar el cliente de AWS para python:
 ```
@@ -60,6 +79,29 @@ y configurar el proyecto, al momento de solicitar las credenciales debes haber c
 
 
 
+una vez con las claves ya hechas configuramos con `eb init`
+
+![Seccion My security credentials](https://raw.githubusercontent.com/okadath/EB4Dummies/master/ebinit1.png)
+
+en *Select a default region* elegir alguna segun zona geografica (solo oprimes enter)
+
+
+![Seccion My security credentials](https://raw.githubusercontent.com/okadath/EB4Dummies/master/ebinit4.png)
+en 
+```Select an application to use
+1) image-of-the-day
+2) [ Create new Application ]
+```
+elegir la deseada (aqui 2) y eleir su nombre
+
+si usas docker Para crear la instancia te lo preuntara, escribes Yes(Y)
+Al usar CodeCommit eliges No(usamos github
+En SSH elegimos Yes(Y)
+y elegimos la llave creada anteriormente
+
+despues de esto al escribir `eb console` nos llevara a AWS en la instancia creada
+
+![Seccion My security credentials](https://raw.githubusercontent.com/okadath/EB4Dummies/master/ebconsole.png)
 
 
 
