@@ -79,27 +79,29 @@ y configurar el proyecto, al momento de solicitar las credenciales debes haber c
 
 
 
-una vez con las claves ya hechas configuramos con `eb init`
+Una vez con las claves ya hechas configuramos con `eb init`
+
+En *Select a default region* elegir alguna segun zona geografica (solo oprimes enter)
 
 ![Seccion My security credentials](https://raw.githubusercontent.com/okadath/EB4Dummies/master/ebinit1.png)
 
-en *Select a default region* elegir alguna segun zona geografica (solo oprimes enter)
-
-
-![Seccion My security credentials](https://raw.githubusercontent.com/okadath/EB4Dummies/master/ebinit4.png)
-en 
+al ingresar la aplicacion 
 ```Select an application to use
 1) image-of-the-day
 2) [ Create new Application ]
 ```
-elegir la deseada (aqui 2) y eleir su nombre
+elegir la deseada (aqui 2) y elegir su nombre
 
-si usas docker Para crear la instancia te lo preuntara, escribes Yes(Y)
-Al usar CodeCommit eliges No(usamos github
-En SSH elegimos Yes(Y)
-y elegimos la llave creada anteriormente
+Si usas Docker Para crear la instancia te lo preuntara, escribes Yes(Y)
 
-despues de esto al escribir `eb console` nos llevara a AWS en la instancia creada
+Al usar CodeCommit eliges No(N), usamos Github
+
+En SSH elegimos Yes(Y) y elegimos la llave creada anteriormente
+
+![Seccion My security credentials](https://raw.githubusercontent.com/okadath/EB4Dummies/master/ebinit4.png)
+
+
+Despues de esto al escribir `eb console` nos llevara a AWS en la instancia creada
 
 ![Seccion My security credentials](https://raw.githubusercontent.com/okadath/EB4Dummies/master/ebconsole.png)
 
