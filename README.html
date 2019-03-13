@@ -731,49 +731,132 @@ pre {
 </style><title>README</title></head><body><article class="markdown-body"><h1>
 <a id="user-content-tutorial-deploy-eb" class="anchor" href="#tutorial-deploy-eb" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Tutorial deploy EB</h1>
 <p>Manejar todo en un virtualenv</p>
-<pre><code>virtualenv  venv(usa por default python2.7)
-source venv/bin/activate
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>virtualenv  venv(usa por default python2.7)
+<span class="pl-c1">source</span> venv/bin/activate</pre></div>
 <p>Para cerrarlo usar <code>source deactivate</code></p>
 <h3>
 <a id="user-content-configurando-el-proyecto" class="anchor" href="#configurando-el-proyecto" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Configurando el proyecto</h3>
 <p>Configurar un proyecto de demostracion (si ya tienes proyecto salta a la siguiente seccion)</p>
-<pre><code>git clone https://github.com/realpython/image-of-the-day.git
-cd image-of-the-day/
+<div class="highlight highlight-source-shell"><pre>git clone https://github.com/realpython/image-of-the-day.git
+<span class="pl-c1">cd</span> image-of-the-day/
 git checkout tags/start_here_py3
-pip install -r requirements.txt
-</code></pre>
+pip install -r requirements.txt</pre></div>
 <p>Usaremos una base de datos de postgres
 si tienes problemas ejecutandolo en local hay que crear la tabla, logeado en Postgres usamos <code>\l</code> para listar tablas y <code>\q</code> para salir de la consola
 <a href="https://raw.githubusercontent.com/okadath/EB4Dummies/master/postgres.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/okadath/EB4Dummies/master/postgres.png" alt="Screenshot postgres" style="max-width:100%;"></a></p>
 
-<pre><code>sudo -u postgres psql -c "ALTER USER postgres PASSWORD 'pass';"
+<div class="highlight highlight-source-shell"><pre>sudo -u postgres psql -c <span class="pl-s"><span class="pl-pds">"</span>ALTER USER postgres PASSWORD 'pass';<span class="pl-pds">"</span></span>
 sudo service postgresql restart
 sudo -u postgres psql
-create database iotd with owner postgres;
-</code></pre>
+create database iotd with owner postgres<span class="pl-k">;</span></pre></div>
 <p>Instalar la libreria de python psycopy2 para conectarse a Postrgres</p>
-<pre><code>pip install psycopy2
-</code></pre>
+<div class="highlight highlight-source-shell"><pre>pip install psycopy2</pre></div>
 <p>En AWS ya viene preconfigurado entonces este problema no ocurre en remoto
 este proyecto necesita configuraciones iniciales:</p>
-<pre><code>python manage.py migrate
+<div class="highlight highlight-source-shell"><pre>python manage.py migrate
 python manage.py createsuperuser
-python manage.py runserver
-</code></pre>
+python manage.py runserver</pre></div>
 <p>En <code>iotd/management/commands/createsu.py</code> esta el usuario por default</p>
 <p>Este proyecto al solo poseer una consola de Admin solo despliega el manager en  <code>http://localhost:8000/admin</code></p>
+<p>Comandos de superusuario:</p>
+<div class="highlight highlight-source-shell"><pre>python manage.py createsuperuser
+python manage.py changepassword <span class="pl-k">&lt;</span>user_name<span class="pl-k">&gt;</span></pre></div>
+<p>Para pasar un usuario normal a admin:</p>
+<p><code>python manage.py shell</code></p>
+<div class="highlight highlight-source-python"><pre><span class="pl-k">from</span> django.contrib.auth.models <span class="pl-k">import</span> User
+user <span class="pl-k">=</span> User.objects.get(<span class="pl-v">username</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>normaluser<span class="pl-pds">'</span></span>)
+user.is_superuser <span class="pl-k">=</span> <span class="pl-c1">True</span>
+user.save()</pre></div>
 <h3>
 <a id="user-content-consola-eb" class="anchor" href="#consola-eb" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Consola EB</h3>
 <p>Instalar el cliente de AWS para python:</p>
-<pre><code>pip install awsebcli
-eb --version
-</code></pre>
-<p>inicializar el proyecto</p>
+<div class="highlight highlight-source-shell"><pre>pip install awsebcli
+eb --version</pre></div>
+<p>inicializar el proyecto con:</p>
 <pre><code>eb init
 </code></pre>
-<p>y configurar el proyecto, al momento de solicitar las credenciales debes haber creado tu ssh key en la seccion "My security credentials" creas la clave y la guardas (Si la pierdes puedes perder el acceso al proyecto entero!)</p>
+<p>y configurarlo, al momento de solicitar las credenciales debes haber creado tu ssh key en la seccion "My security credentials" creas la clave y la guardas (Si la pierdes puedes perder el acceso al proyecto entero!)</p>
 <p><a href="https://raw.githubusercontent.com/okadath/EB4Dummies/master/keys.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/okadath/EB4Dummies/master/keys.png" alt="Seccion My security credentials" style="max-width:100%;"></a></p>
+<p>Una vez con las claves ya hechas configuramos con <code>eb init</code></p>
+<p>En <em>Select a default region</em> elegir alguna segun zona geografica (solo oprimes enter)</p>
+<p><a href="https://raw.githubusercontent.com/okadath/EB4Dummies/master/ebinit1.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/okadath/EB4Dummies/master/ebinit1.png" alt="init instance" style="max-width:100%;"></a></p>
+<p>Al ingresar la aplicacion</p>
+<pre><code>Select an application to use
+1) image-of-the-day
+2) [ Create new Application ]
+</code></pre>
+<p>elegir la deseada (aqui 2) y elegir su nombre</p>
+<p>Si usas Docker Para crear la instancia te lo preuntara, escribes Yes(Y)</p>
+<p>Al usar CodeCommit eliges No(N), usamos Github</p>
+<p>En SSH elegimos Yes(Y) y elegimos la llave creada anteriormente</p>
+<p><a href="https://raw.githubusercontent.com/okadath/EB4Dummies/master/ebinit4.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/okadath/EB4Dummies/master/ebinit4.png" alt="init" style="max-width:100%;"></a></p>
+<p>Despues de esto al escribir <code>eb console</code> nos llevara a AWS en la instancia creada</p>
+<p><a href="https://raw.githubusercontent.com/okadath/EB4Dummies/master/ebconsole.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/okadath/EB4Dummies/master/ebconsole.png" alt="console aws" style="max-width:100%;"></a></p>
+<h3>
+<a id="user-content-deployando-cambios" class="anchor" href="#deployando-cambios" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Deployando cambios</h3>
+<p>Despues usar <code>eb create</code> para subir el proyecto en formato zip(es muy lento, use codenvy para que fuese rapido) usamos la configuracion por default dandole enter a todo
+<a href="https://raw.githubusercontent.com/okadath/EB4Dummies/master/ebcreate.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/okadath/EB4Dummies/master/ebcreate.png" alt="create project" style="max-width:100%;"></a></p>
+<p>Si se hacen cambios en el proyecto se debe de usar git y commitearlos para despues usar
+<code>eb deploy</code> para actualizar el server</p>
+<p>A partir de aqui son configuraciones de la instancia y del servidor
+Para usar el script wsgi usamos <code>eb config</code> y eso abrira el editor en consola por defecto (instalar nano!!)</p>
+<p><a href="https://raw.githubusercontent.com/okadath/EB4Dummies/master/ebconfig.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/okadath/EB4Dummies/master/ebconfig.png" alt="eb config" style="max-width:100%;"></a></p>
+<p>Ahi buscaremos la siguiente linea y la cambiaremos para usar el<code>wsgi.py</code> de la aplicacion</p>
+<div class="highlight highlight-source-yaml"><pre><span class="pl-ent">aws:elasticbeanstalk:container:python</span>:
+   <span class="pl-ent">NumProcesses</span>: <span class="pl-s"><span class="pl-pds">'</span>1<span class="pl-pds">'</span></span>
+   <span class="pl-ent">NumThreads</span>: <span class="pl-s"><span class="pl-pds">'</span>15<span class="pl-pds">'</span></span>
+   <span class="pl-ent">StaticFiles</span>: <span class="pl-s">/static/=static/</span>
+   <span class="pl-ent">WSGIPath</span>: <span class="pl-s">vitalquestions/wsgi.py</span>
+ <span class="pl-ent">aws:elasticbeanstalk:container:python:staticfiles</span>:
+   <span class="pl-ent">/static/</span>: <span class="pl-s">static/</span></pre></div>
+<p><a href="https://raw.githubusercontent.com/okadath/EB4Dummies/master/ebconfig2.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/okadath/EB4Dummies/master/ebconfig2.png" alt="change config" style="max-width:100%;"></a></p>
+<p>Despues de eso crearemos algunos archivos en <code>.ebextensions</code> para ejecutar automaticamente scripts en EC2 para configurar nuestro servidor:</p>
+<ul>
+<li>02_python.config:</li>
+</ul>
+<div class="highlight highlight-source-yaml"><pre><span class="pl-ent">container_commands</span>:
+  <span class="pl-ent">01_migrate</span>:
+    <span class="pl-ent">command</span>: <span class="pl-s"><span class="pl-pds">"</span>source /opt/python/run/venv/bin/activate &amp;&amp; python manage.py migrate --noinput<span class="pl-pds">"</span></span>
+    <span class="pl-ent">leader_only</span>: <span class="pl-c1">true</span></pre></div>
+<ul>
+<li>03_apache.config:</li>
+</ul>
+<div class="highlight highlight-source-yaml"><pre><span class="pl-ent">container_commands</span>:
+  <span class="pl-ent">01_setup_apache</span>:
+    <span class="pl-ent">command</span>: <span class="pl-s"><span class="pl-pds">"</span>cp .ebextensions/enable_mod_deflate.conf /etc/httpd/conf.d/enable_mod_deflate.conf<span class="pl-pds">"</span></span></pre></div>
+<ul>
+<li>enable_mod_deflate.conf</li>
+</ul>
+<div class="highlight highlight-text-xml"><pre># mod_deflate configuration 
+&lt;<span class="pl-ent">IfModule</span> mod_deflate.c&gt; 
+  # Restrict compression to these MIME types 
+  AddOutputFilterByType DEFLATE text/plain 
+  AddOutputFilterByType DEFLATE text/html 
+  AddOutputFilterByType DEFLATE application/xhtml+xml 
+  AddOutputFilterByType DEFLATE text/xml 
+  AddOutputFilterByType DEFLATE application/xml 
+  AddOutputFilterByType DEFLATE application/xml+rss 
+  AddOutputFilterByType DEFLATE application/x-javascript 
+  AddOutputFilterByType DEFLATE text/javascript 
+  AddOutputFilterByType DEFLATE text/css 
+  # Level of compression (Highest 9 - Lowest 1) 
+  DeflateCompressionLevel 9 
+  # Netscape 4.x has some problems. 
+  BrowserMatch ^Mozilla/4 gzip-only-text/html 
+  # Netscape 4.06-4.08 have some more problems 
+  BrowserMatch ^Mozilla/4\.0[678] no-gzip 
+  # MSIE masquerades as Netscape, but it is fine 
+  BrowserMatch \bMSI[E] !no-gzip !gzip-only-text/html 
+&lt;<span class="pl-ent">IfModule</span> mod_headers.c&gt; 
+  # Make sure proxies don't deliver the wrong content 
+  Header append Vary User-Agent env=!dont-vary 
+&lt;/<span class="pl-ent">IfModule</span>&gt; 
+&lt;/<span class="pl-ent">IfModule</span>&gt;
+</pre></div>
+<p>Hay un error al hacer el deploy ya habiendo configurado la instancia:</p>
+<p><a href="https://raw.githubusercontent.com/okadath/EB4Dummies/master/allowedhost.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/okadath/EB4Dummies/master/allowedhost.png" alt="hosts" style="max-width:100%;"></a></p>
+<p>Agregar a <code>ALLOWED_HOST</code> el nombre del server en <code>&lt;nombre_aplicacion&gt;/settings.py</code></p>
+<div class="highlight highlight-source-python"><pre><span class="pl-c1">ALLOWED_HOSTS</span> <span class="pl-k">=</span> [<span class="pl-s"><span class="pl-pds">"</span>20vq-codenvy-dev.us-west-2.elasticbeanstalk.com<span class="pl-pds">"</span></span>,]</pre></div>
 <h3>
 <a id="user-content-corriendo-el-server" class="anchor" href="#corriendo-el-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Corriendo el server</h3>
 <p>Despues de todo esto el dashboard deberia lucir asi, el mensaje de Healt indica el estado en el que se haya el proyecto, ya <a href="#todo">corriendo</a> en AWS.</p>
@@ -789,4 +872,7 @@ eb --version
 <ul>
 <li>Hay que buscar una forma segura de apagar el server sin perdida de datos ya que al estar siempre encendido se cobra por su uso y este solo es un demo</li>
 </ul>
+<p>Se puede acceder a lso costos de las instancias dando click en la siguiente pestaña y ahi nos indicara el monto cargado por la instancia</p>
+<p><a href="https://raw.githubusercontent.com/okadath/EB4Dummies/master/billingmenu.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/okadath/EB4Dummies/master/billingmenu.png" alt="billing" style="max-width:100%;"></a></p>
+<p><a href="https://raw.githubusercontent.com/okadath/EB4Dummies/master/pricing.png" target="_blank" rel="nofollow"><img src="https://raw.githubusercontent.com/okadath/EB4Dummies/master/pricing.png" alt="pricing" style="max-width:100%;"></a></p>
 </article></body></html>
