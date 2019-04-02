@@ -217,3 +217,23 @@ Se puede acceder a lso costos de las instancias dando click en la siguiente pest
 ![billing](https://raw.githubusercontent.com/okadath/EB4Dummies/master/billingmenu.png)
 
 ![pricing](https://raw.githubusercontent.com/okadath/EB4Dummies/master/pricing.png)
+
+si hay errores con los js es por que falto correr el collectstatic para condensar los js y los css en la carpeta `/static/`
+hay que agregar al settings :
+```python
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+
+# media files
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
+```
+hay que asegurarse que si esten los js en la carpeta, si no pasarlos a mano Ctrl+C -> Ctrl+V
+
+```python
+ python manage.py collectstatic
+```
